@@ -14,7 +14,7 @@ import { OrderComponent } from './components/order/order.component';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    // OrderComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule,

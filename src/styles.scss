@@ -1,5 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
 body {
     background: linear-gradient(rgb(14, 17, 36), rgb(36, 26, 73));
+    // color: #fff;
+}
+
+.container {
     color: #fff;
+}
+
+.intro-section {
+    text-align: center;
+    color: #fff;
+    padding: 20px;
+}
+
+.form-control {
+    background-color: transparent;
+    color: #fff;
+
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+        opacity: 1;
+    }
+
+    &:-ms-input-placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    &::-ms-input-plaholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
 }
