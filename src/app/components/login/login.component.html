@@ -1,0 +1,60 @@
+<form [formGroup]="formLogin">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="login-form mx-auto">
+                <h2 class="login-header">Đăng nhập</h2>
+
+                <div class="form-group">
+                    <label class="form-label">Số điện thoại</label>
+                    <input type="text" class="form-control" formControlName="phone" placeholder="Nhập" />
+                    <div class="divider-nospace"></div>
+                    <div *ngIf="ctrl.phone?.invalid && (ctrl.phone?.dirty || ctrl.phone?.touched)">
+                        <p class="text-danger" *ngIf="ctrl.phone?.errors?.required">Trường này là bắt buộc</p>
+                        <p class="text-danger" *ngIf="ctrl.phone?.errors?.invalidPhoneNumber">Số điện thoại không hợp lệ
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-5"></div>
+                <div class="form-group password-field">
+                    <label class="form-label">Mật khẩu</label>
+                    <input type="password" class="form-control" formControlName="password"
+                        placeholder="Tối thiểu 8 ký tự" />
+                    <i class="fa-solid fa-eye-slash password-toggle"></i>
+                    <div class="divider-nospace"></div>
+                    <div *ngIf="ctrl.password?.invalid && (ctrl.password?.dirty || ctrl.password?.touched)">
+                        <p class="text-danger" *ngIf="ctrl.password?.errors?.required">Trường này là bắt buộc</p>
+                        <p class="text-danger" *ngIf="ctrl.password?.errors?.invalidPassword">Mật khẩu phải có tối thiểu
+                            8 ký tự</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check checkbox-text">
+                        <span style="display: flex;">
+                            <input type="checkbox" class="form-check-input" id="remember" />
+                            <label for="remember" class="form-check-label">Ghi nhớ đăng nhập</label>
+                        </span>
+                        <a href="#" class="register-link">Quên mật khẩu</a>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control access-right">
+                        <option selected disabled>Quyền đăng nhập</option>
+                        <option value="1">Người dùng</option>
+                        <option value="2">Quản trị viên</option>
+                    </select>
+                </div>
+
+                <button type="button" class="btn btn-gradient login-button" (click)="login()">Đăng nhập</button>
+                <div class="divider"></div>
+                <p class="text-center">
+                    Bạn chưa đăng ký?
+                    <span><a [routerLink]="['/register']" class="register-link">Tạo tài khoản</a></span>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</form>

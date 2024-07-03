@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box;
+}
+
 body {
     background: linear-gradient(rgb(14, 17, 36), rgb(36, 26, 73));
     // color: #fff;
@@ -29,5 +33,14 @@ body {
 
     &::-ms-input-plaholder {
         color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+button.btn {
+    &.btn-gradient {
+        color: #fff;
+        background: linear-gradient(to right, rgb(225, 64, 180), rgb(126, 43, 237));
+        border-radius: 30px;
+        width: 200px;
     }
 }

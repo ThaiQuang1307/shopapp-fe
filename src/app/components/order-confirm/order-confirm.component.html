@@ -1,0 +1,33 @@
+<div class="confirmation-container">
+    <h1>Xác nhận đơn hàng</h1>
+    <p>Cảm ơn bạn đã đặt hàng! Dưới đây là thông tin chi tiết về đơn hàng của bạn</p>
+</div>
+
+<div class="row">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col" class="text-start">Sản phẩm</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col">Đơn giá</th>
+                <th scope="col">Tổng giá</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products">
+                <td>
+                    <div class="product-infor">
+                        <img src="{{product.imageUrl}}" alt="product-image" class="product-image" />
+                        <span class="product-name">{{product.name}}</span>
+                    </div>
+                </td>
+                <td>{{product.quantity}}</td>
+                <td>{{product.price}} đ</td>
+                <td>{{product.total}} đ</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center mt-3">
+        <button class="btn btn-gradient" type="button">Đặt hàng</button>
+    </div>
+</div>
