@@ -4,6 +4,7 @@ import { API_URL } from '../constants/api.constant';
 import { Observable } from 'rxjs';
 import { RegisterDTO } from '../components/dtos/user/register.dto';
 import { LoginDTO } from '../components/dtos/user/login.dto';
+import { HttpUtilService } from './http.util.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,21 +12,13 @@ import { LoginDTO } from '../components/dtos/user/login.dto';
 export class UserService {
   // protected http: HttpClient;
   private apiConfig = {
-    headers: this.createHeaders()
+    headers: this.httpUtilService.createHeaders()
   }
 
   constructor(
-    // private injector: Injector,
     private http: HttpClient,
+    private httpUtilService: HttpUtilService,
   ) {
-    // this.http = injector.get(HttpClient);
-  }
-
-  private createHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept-Language': 'vi',
-    });
   }
 
   register(registerData: RegisterDTO): Observable<HttpResponse<any>> {
