@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { API_URL } from 'src/app/constants/api.constant';
 import { TITLE } from 'src/app/constants/title.constant';
+import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -14,27 +15,56 @@ export class HomeComponent implements OnInit {
   page: number = 0;
   limit: number = 6;
   totalPage: number = 0;
-  visiblePages: number[] = []
+  visiblePages: number[] = [];
+
+  keyword: string = '';
+  categories: any[] = [];
+  categoryId: number = 0;
 
 
   constructor(
     private titleService: Title,
     private productService: ProductService,
+    private categoryService: CategoryService,
   ) {
     this.titleService.setTitle(TITLE.HOME);
   }
   ngOnInit(): void {
-    this.getProducts(this.page, this.limit);
+    this.getCategories();
+    this.getProducts(this.keyword, this.categoryId, this.page, this.limit)
   }
 
-  getProducts(page: number, limit: number): void {
+  searchProducts(): void {
+    this.page = 0
+    this.getProducts(this.keyword, this.categoryId, this.page, this.limit)
+  }
+
+  getCategories(): void {
+    this.categoryService.getCategories().subscribe({
+      next: (response: any) => {
+        if (response.body?.length) {
+          this.categories = response.body;
+        }
+      },
+      error: (error: any) => {
+        console.error('Lỗi khi lấy danh sách danh mục:', error);
+      },
+      complete: () => {
+
+      }
+    })
+  }
+
+  getProducts(keyword: string, categoryId: number, page: number, limit: number): void {
     let params = {
       page: page,
       limit: limit,
+      keyword: keyword,
+      category_id: categoryId
     }
+
     this.productService.getProducts(params).subscribe({
       next: (response: any) => {
-        console.log(response)
         if (response?.body?.dataList?.length) {
           this.totalPage = response.body.totalPage;
           this.products = response.body.dataList;
@@ -42,8 +72,6 @@ export class HomeComponent implements OnInit {
             item.url = `${API_URL.PRODUCT.GET_IMAGE}/${item.thumbnail}`
           })
           this.visiblePages = this.generateVisiblePageArray(this.page, this.totalPage)
-          console.log(this.products)
-          console.log(this.visiblePages)
         }
       },
       error: (error: any) => {
@@ -57,12 +85,12 @@ export class HomeComponent implements OnInit {
 
   onPageChange(page: number): void {
     this.page = page
-    this.getProducts(this.page, this.limit)
+    this.getProducts(this.keyword, this.categoryId, this.page, this.limit)
   }
 
   generateVisiblePageArray(page: number, totalPage: number): number[] {
     const maxVisiblePages = 5
-    const halfVisiblePages = Math.floor(maxVisiblePages /2)
+    const halfVisiblePages = Math.floor(maxVisiblePages / 2)
 
     let startPage = Math.max(page - halfVisiblePages, 1)
     let endPage = Math.min(startPage + maxVisiblePages - 1, totalPage)
@@ -71,7 +99,7 @@ export class HomeComponent implements OnInit {
       startPage = Math.max(endPage - maxVisiblePages + 1, 1)
     }
 
-    return new Array(endPage -startPage + 1).fill(0).map((_, index) => startPage + index)
+    return new Array(endPage - startPage + 1).fill(0).map((_, index) => startPage + index)
   }
 
 }

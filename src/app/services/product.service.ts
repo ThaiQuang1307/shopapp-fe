@@ -15,4 +15,12 @@ export class ProductService {
   getProducts(params: any): Observable<any> {
     return this.http.get<any>(API_URL.PRODUCT.GET_ALL, { observe: 'response', params })
   }
+
+  getProductById(productId: string): Observable<any> {
+    return this.http.get<any>(`${API_URL.PRODUCT.GET_ALL}/${productId}`, { observe: 'response' })
+  }
+
+  getProductsByIds(params: any): Observable<any> {
+    return this.http.get<any>(API_URL.PRODUCT.GET_PRODUCTS_BY_IDS, { observe: 'response', params })
+  }
 }

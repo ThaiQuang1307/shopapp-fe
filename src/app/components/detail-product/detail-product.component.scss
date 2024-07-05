@@ -19,7 +19,7 @@
         }
 
         &.active {
-            border: 2px solid #fff;
+            border: 2px solid yellowgreen;
         }
 
         img {
@@ -32,6 +32,7 @@
 
 .product-detail {
     padding: 20px;
+    color: #fff;
 
     .product-actions {
         display: flex;
